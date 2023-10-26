@@ -24,7 +24,7 @@ spec:
           - name: SPRING_APPLICATION_VERSION
             value: "v1"
           - name: SPRING_APPLICATION_DEPENDENCIES_CALLME_HOST
-            value: "callme-service.secondary.svc.cluster.local"
+            value: "callme-service"
           - name: SPRING_APPLICATION_DEPENDENCIES_CALLME_PORT
             value: "8080"
 ---
@@ -41,3 +41,18 @@ spec:
       name: http
   selector:
     app: caller-service
+---
+# Used to create a dummy reference that can then be used VirtualService
+apiVersion: v1
+kind: Service
+metadata:
+  name: callme-service
+  labels:
+    app: callme-service
+spec:
+  type: NodePort
+  ports:
+    - port: 8080
+      name: http
+  selector:
+    app: callme-service

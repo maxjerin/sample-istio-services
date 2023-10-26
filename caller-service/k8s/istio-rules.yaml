@@ -39,3 +39,16 @@ spec:
             host: caller-service
             subset: v1
 #      timeout: 0.5s # - to enable if using Istio fault on callme-service route
+---
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: callme-service-route
+spec:
+  hosts:
+    - "callme-service"
+  http:
+    - route:
+        - destination:
+            host: "callme-service.primary.svc.cluster.local"
+            subset: v1
