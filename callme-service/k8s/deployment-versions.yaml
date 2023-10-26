@@ -21,7 +21,7 @@ spec:
           ports:
             - containerPort: 8080
           env:
-            - name: "spring.application.version"
+            - name: SPRING_APPLICATION_VERSION
               value: "v1"
 ---
 apiVersion: apps/v1
@@ -47,7 +47,7 @@ spec:
           ports:
             - containerPort: 8080
           env:
-            - name: "spring.application.version"
+            - name: SPRING_APPLICATION_VERSION
               value: "v2"
 ---
 apiVersion: v1

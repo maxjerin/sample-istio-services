@@ -16,15 +16,17 @@ spec:
     spec:
       containers:
       - name: caller-service
-        image: maxjerin/caller-service:0.0.2
+        image: maxjerin/caller-service:0.0.4
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 8080
         env:
-          - name: "spring.application.version"
+          - name: SPRING_APPLICATION_VERSION
             value: "v1"
-          - name: "spring.application.version"
-            value: "v1"
+          - name: SPRING_APPLICATION_DEPENDENCIES_CALLME_HOST
+            value: "callme-service.secondary.svc.cluster.local"
+          - name: SPRING_APPLICATION_DEPENDENCIES_CALLME_PORT
+            value: "8080"
 ---
 apiVersion: v1
 kind: Service
