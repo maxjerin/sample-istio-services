@@ -25,7 +25,7 @@ public class CallmeController {
 
     @Autowired
     Optional<BuildProperties> buildProperties;
-    @Value("${VERSION}")
+    @Value("${spring.application.version}")
     private String version;
 
     @GetMapping("/ping")

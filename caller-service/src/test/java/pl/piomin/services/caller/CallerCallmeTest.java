@@ -23,7 +23,7 @@ public class CallerCallmeTest {
     @Test
     public void callmeIntegration(Hoverfly hoverfly) {
         hoverfly.simulate(
-            dsl(service("http://callme-service:8080")
+            dsl(service("http://callme-service.secondary.svc.cluster.local:8080")
                 .get("/callme/ping")
                 .willReturn(success().body("I'm callme-service v1.")))
         );

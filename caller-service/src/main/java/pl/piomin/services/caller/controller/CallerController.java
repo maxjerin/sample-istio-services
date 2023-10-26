@@ -23,13 +23,18 @@ public class CallerController {
     Optional<BuildProperties> buildProperties;
     @Autowired
     RestTemplate restTemplate;
-    @Value("${VERSION}")
+    @Value("${spring.application.version}")
     private String version;
+    @Value("${spring.application.dependencies.callme.host}")
+    private String callmeHost;
+    @Value("${spring.application.dependencies.callme.port}")
+    private String callmePort;
 
     @GetMapping("/ping")
     public String ping() {
         LOGGER.info("Ping: name={}, version={}", buildProperties.or(Optional::empty), version);
-        String response = restTemplate.getForObject("http://callme-service:8080/callme/ping", String.class);
+        String callerUrl = "http://" + this.callmeHost + ":" + this.callmePort;
+        String response = restTemplate.getForObject(callerUrl + "/callme/ping", String.class);
         LOGGER.info("Calling: response={}", response);
         return "I'm caller-service " + version + ". Calling... " + response;
     }

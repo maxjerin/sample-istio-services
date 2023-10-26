@@ -1,4 +1,7 @@
-spring.application.name: callme-service
+spring:
+  application:
+    name: callme-service
+    version: v1
 
 management:
   endpoint:

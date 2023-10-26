@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: caller-service
-        image: piomin/caller-service
+        image: maxjerin/caller-service:0.0.2
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 8080

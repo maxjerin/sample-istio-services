@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: callme-service
-          image: piomin/callme-service
+          image: maxjerin/callme-service:0.0.2
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8080
@@ -42,7 +42,7 @@ spec:
     spec:
       containers:
         - name: callme-service
-          image: piomin/callme-service
+          image: maxjerin/callme-service:0.0.2
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8080

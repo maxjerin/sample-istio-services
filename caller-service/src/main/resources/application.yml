@@ -1,1 +1,8 @@
-spring.application.name: caller-service
+spring:
+  application:
+    name: caller-service
+    version: v2
+    dependencies:
+      callme:
+        host: callme-service.secondary.svc.cluster.local
+        port: 8080

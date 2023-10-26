@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: callme-service
-          image: callme-service:1.1.0
+          image: maxjerin/callme-service:0.0.2
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8080
@@ -39,7 +39,7 @@ spec:
 #            allowPrivilegeEscalation: true
 #            runAsNonRoot: false
           resources:
-            limits: 
+            limits:
               cpu: '1'
       volumes:
         - name: crac
