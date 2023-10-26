@@ -2,9 +2,22 @@ apiVersion: skaffold/v2beta22
 kind: Config
 build:
   artifacts:
-    - image: piomin/caller-service
+    - image: caller-service
+      context: Dockerfile
       jib:
         args:
           - -Pjib
+  local:
+    push: true
+    useBuildkit: true
   tagPolicy:
-    gitCommit: {}
+    customTemplate:
+      template: "{{.TIME}}_{{.GIT_HASH}}"
+      components:
+      - name: TIME
+        dateTime:
+          format: "2006-01-02"
+          timezone: "UTC"
+      - name: GIT_HASH
+        gitCommit:
+          variant: AbbrevCommitSha
