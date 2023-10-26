@@ -32,8 +32,8 @@ public class CallerController {
 
     @GetMapping("/ping")
     public String ping() {
-        LOGGER.info("Ping: name={}, version={}", buildProperties.or(Optional::empty), version);
         String callerUrl = "http://" + this.callmeHost + ":" + this.callmePort;
+        LOGGER.info("Ping: callme-service={}, name={}, version={}", callerUrl, buildProperties.or(Optional::empty), version);
         String response = restTemplate.getForObject(callerUrl + "/callme/ping", String.class);
         LOGGER.info("Calling: response={}", response);
         return "I'm caller-service " + version + ". Calling... " + response;
