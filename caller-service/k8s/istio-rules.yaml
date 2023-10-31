@@ -37,6 +37,8 @@ spec:
     - route:
         - destination:
             host: caller-service
+            port:
+              number: 80
             subset: v1
 #      timeout: 0.5s # - to enable if using Istio fault on callme-service route
 ---
@@ -50,5 +52,5 @@ spec:
   http:
     - route:
         - destination:
-            host: "callme-service.primary.svc.cluster.local"
+            host: "callme-service.callme.svc.cluster.local"
             subset: v1
