@@ -23,7 +23,7 @@ $ kubectl apply -f caller-service/k8s/deployment-versions.yaml -f caller-service
 # Create new primary namespace
 $ kubectl create ns primary
 
-# Deploy caller-service
+# Deploy callme-service
 $ kubectl apply -f callme-service/k8s/deployment-versions.yaml -f callme-service/k8s/istio-rules.yaml -n primary
 
 # Access caller service from ingressgateway
