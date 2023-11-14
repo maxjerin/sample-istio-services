@@ -6,8 +6,8 @@ Multi-cluster does not work on MacOs or Windows. It only works on linux.
 
 ## Global Variables for the two clusters
 ```
-$ export CTX_CLUSTER1=cluster1
-$ export CTX_CLUSTER2=cluster2
+$ export CTX_CLUSTER1=kind-primary
+$ export CTX_CLUSTER2=kind-remote
 ```
 
 ## Create two clusters
@@ -61,9 +61,9 @@ $ kubectl --context="${CTX_CLUSTER2}" \
 
 ## Configure Clusters as Primary (back in sample-istio-service repo)
 ```
-$ istioctl install --context="${CTX_CLUSTER1}" -f ./multi-cluster/same-network/cluster1.yaml --set profile=demo
+$ istioctl install --context="${CTX_CLUSTER1}" -f ./multi-cluster/same-network/cluster1.yaml --set profile=demo -y
 
-$ istioctl install --context="${CTX_CLUSTER2}" -f ./multi-cluster/same-network/cluster2.yaml --set profile=demo
+$ istioctl install --context="${CTX_CLUSTER2}" -f ./multi-cluster/same-network/cluster2.yaml --set profile=demo -y
 ```
 
 ## Enable Endpoint Discovery
@@ -75,13 +75,13 @@ $ istioctl --context="${CTX_CLUSTER1}" \
     create-remote-secret \
     --context="${CTX_CLUSTER1}" \
     --server="https://$(minikube ip -p "${CTX_CLUSTER1}"):8443" \
-    --name=cluster1 | \
+    --name="${CTX_CLUSTER1}" | \
     kubectl apply -f - --context="${CTX_CLUSTER2}"
 $ istioctl --context="${CTX_CLUSTER1}" \
     create-remote-secret \
     --context="${CTX_CLUSTER1}" \
     --server="https://cluster1:57361" \
-    --name=cluster1 | \
+    --name="${CTX_CLUSTER1}" | \
     kubectl apply -f - --context="${CTX_CLUSTER2}"
 
 $ kubectl config use-context "$CTX_CLUSTER2"
@@ -89,13 +89,13 @@ $ istioctl --context="${CTX_CLUSTER2}" \
     create-remote-secret \
     --context="${CTX_CLUSTER2}" \
     --server="https://$(minikube ip -p "${CTX_CLUSTER2}"):8443" \
-    --name=cluster2 | \
+    --name="${CTX_CLUSTER2}" | \
     kubectl apply -f - --context="${CTX_CLUSTER1}"
 $ istioctl --context="${CTX_CLUSTER2}" \
     create-remote-secret \
     --context="${CTX_CLUSTER2}" \
     --server="https://cluster2:57100" \
-    --name=cluster2 | \
+    --name="${CTX_CLUSTER2}" | \
     kubectl apply -f - --context="${CTX_CLUSTER1}"
 ```
 
@@ -107,8 +107,8 @@ $ istioctl --context="${CTX_CLUSTER2}" \
 $ kubectl --context="${CTX_CLUSTER1}" \
     label namespace default istio-injection=enabled
 $ kubectl --context="${CTX_CLUSTER1}" apply \
-    -f caller-service/k8s/deployment-versions-multi-cluster.yaml \
-    -f caller-service/k8s/istio-rules-multi-cluster.yaml
+    -f caller-service/k8s/deployment-versions.yaml \
+    -f caller-service/k8s/istio-rules.yaml
 ```
 
 ### Callme-Service in Cluster2 (in the default namespace)

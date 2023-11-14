@@ -48,18 +48,3 @@ spec:
       targetPort: 8080
   selector:
     app: caller-service
----
-# Used to create a dummy reference that can then be used VirtualService
-apiVersion: v1
-kind: Service
-metadata:
-  name: callme-service
-  labels:
-    app: callme-service
-spec:
-  type: NodePort
-  ports:
-    - port: 8080
-      name: http
-  selector:
-    app: callme-service
