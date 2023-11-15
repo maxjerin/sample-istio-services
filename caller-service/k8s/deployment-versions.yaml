@@ -22,7 +22,7 @@ spec:
       serviceAccountName: caller
       containers:
       - name: caller-service
-        image: maxjerin/caller-service:0.0.4
+        image: maxjerin/caller-service:2023-11-02_6c71c8e-dirty
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 8080
