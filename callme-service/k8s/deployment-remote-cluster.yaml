@@ -5,7 +5,7 @@ metadata:
   labels:
     app: callme-service
 spec:
-  type: NodePort
+  # type: ClusterIP
   ports:
     - port: 8080
       name: http
@@ -17,10 +17,11 @@ kind: VirtualService
 metadata:
   name: callme-service
 spec:
+  gateways:
+    - callme-gateway
   hosts:
-    - "callme-service"
+    - "callme.example.com"
   http:
     - route:
         - destination:
             host: "callme-service"
-            subset: v1

@@ -25,6 +25,12 @@ REMOTE_CLUSTER_KUBE_API_URL=$3
 log-message "INFO" "Load context before creating secret"
 kubectl config use-context "$CURRENT_CLUSTER_CONTEXT"
 
+log-message "INFO" "Create namesapce"
+kubectl --context="$CURRENT_CLUSTER_CONTEXT" \
+  create namespace istio-system \
+  --dry-run=client -o yaml \
+  | kubectl apply --overwrite -f -
+
 log-message "INFO" "Apply remote cluster secret"
 istioctl --context="$CURRENT_CLUSTER_CONTEXT" \
     create-remote-secret \

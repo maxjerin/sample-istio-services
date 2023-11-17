@@ -4,14 +4,14 @@ metadata:
   name: caller-gateway
 spec:
   selector:
-    istio: ingressgateway
+    istio: eastwestgateway
   servers:
     - port:
-        number: 80
+        number: 8080
         name: http
         protocol: HTTP
       hosts:
-        - "caller.example.com"
+        - "*"
 ---
 apiVersion: networking.istio.io/v1beta1
 kind: DestinationRule
@@ -19,10 +19,6 @@ metadata:
   name: caller-service-destination
 spec:
   host: caller-service
-  subsets:
-    - name: v1
-      labels:
-        version: v1
 ---
 apiVersion: networking.istio.io/v1beta1
 kind: VirtualService
@@ -30,7 +26,7 @@ metadata:
   name: caller-service
 spec:
   hosts:
-    - "caller.example.com"
+    - "*"
   gateways:
     - caller-gateway
   http:
@@ -38,6 +34,4 @@ spec:
         - destination:
             host: caller-service
             port:
-              number: 80
-            subset: v1
-#      timeout: 0.5s # - to enable if using Istio fault on callme-service route
+              number: 8080
