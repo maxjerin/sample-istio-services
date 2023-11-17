@@ -22,12 +22,10 @@ NETWORK=$2
 ! programs-are-installed "istioctl" "git" && exit 1
 
 YAML_FILE_1="$(pwd)/cluster-config/multi-cluster/different-network/$CLUSTER_CONTEXT.yaml"
-YAML_FILE_2="$(pwd)/cluster-config/multi-cluster/different-network/gateway-$CLUSTER_CONTEXT.yaml"
 
 log-message "INFO" "Check yaml exists"
 ! files-exist \
-    "$(pwd)/$YAML_FILE_1" \
-    "$(pwd)/$YAML_FILE_2" \
+    "$YAML_FILE_1" \
     && exit 1
 
 kubectl --context="$CLUSTER_CONTEXT" \
@@ -35,4 +33,4 @@ kubectl --context="$CLUSTER_CONTEXT" \
   topology.istio.io/network="$NETWORK"
 
 log-message "INFO" "Configure istio on a cluster as primary"
-istioctl install --context="$CLUSTER_CONTEXT"  -f "$YAML_FILE_2" -f "$YAML_FILE_1" --set profile=demo -y
+istioctl install --context="$CLUSTER_CONTEXT"  -f "$YAML_FILE_1" --set profile=demo -y
