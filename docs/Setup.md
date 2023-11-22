@@ -24,3 +24,9 @@ $ kubectl apply -f https://raw.githubusercontent.com/istio/istio/release-1.19/sa
 ```
 istioctl proxy-status
 ```
+
+## Enable Debugging
+
+```
+$ kubectl exec -n default caller-service-6bbcc4788b-dcllf -- curl -X POST "http://localhost:15000/logging?level=debug"
+```
