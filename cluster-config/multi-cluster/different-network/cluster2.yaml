@@ -39,10 +39,6 @@ spec:
               - name: tls-webhook
                 port: 15017
                 targetPort: 15017
-              - name: callme-service
-                port: 8080
-                targetPort: 8080
-                protocol: TCP
   values:
     sidecarInjectorWebhook:
       rewriteAppHTTPProbe: false
