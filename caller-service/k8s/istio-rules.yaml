@@ -26,7 +26,7 @@ metadata:
   name: caller-service
 spec:
   hosts:
-    - "*"
+    - caller-service.default.svc.cluster.local
   gateways:
     - caller-gateway
   http:

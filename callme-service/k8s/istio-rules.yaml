@@ -11,7 +11,7 @@ spec:
         name: http
         protocol: HTTP
       hosts:
-        - "callme.example.com"
+        - "*"
 ---
 apiVersion: networking.istio.io/v1beta1
 kind: DestinationRule
