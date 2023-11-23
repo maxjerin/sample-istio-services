@@ -20,12 +20,18 @@ CLUSTER_CONTEXT=$1
 
 ! programs-are-installed "kubectl" && exit 1
 
-YAML_FILE="$(pwd)/cluster-config/multi-cluster/metallb/$CLUSTER_CONTEXT.yaml"
+YAML_FILE="$(pwd)/cluster-config/metallb/$CLUSTER_CONTEXT.yaml"
 
 log-message "INFO" "Check yaml exists"
 ! files-exist \
-    "$(pwd)/$YAML_FILE" \
+    "$YAML_FILE" \
     && exit 1
 
+log-message "INFO" "Create metallb-system namespace"
+kubectl --context="${CLUSTER_CONTEXT}" \
+  create namespace metallb-system \
+  --dry-run=client -o yaml \
+  | kubectl apply -f -
+
 log-message "INFO" "Configure metallb on a cluster"
-kubectl apply --context="$CLUSTER_CONTEXT" -f "$YAML_FILE"
+kubectl apply --context="$CLUSTER_CONTEXT" -n metallb-system -f "$YAML_FILE"

@@ -6,4 +6,4 @@ spec:
       meshID: mesh1
       multiCluster:
         clusterName: cluster1
-      network: network-1
+      network: network1
